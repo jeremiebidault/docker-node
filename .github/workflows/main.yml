@@ -21,8 +21,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -32,5 +30,3 @@ jobs:
             NODE_RELEASE=${{ matrix.NODE_RELEASE }}
             SELENIUM_RELEASE=${{ matrix.SELENIUM_RELEASE }}
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }}
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }},mode=max
