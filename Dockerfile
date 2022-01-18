@@ -1,6 +1,3 @@
-ARG SELENIUM_RELEASE
-
-# FROM aarto/selenium:${SELENIUM_RELEASE}
 FROM aarto/selenium:4.0.0
 
 ARG NODE_RELEASE
