@@ -16,28 +16,19 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v2
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v1
-      #   with:
-      #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v1
-      # - name: Build and push
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     push: true
-      #     build-args: |
-      #       NODE_RELEASE=${{ matrix.NODE_RELEASE }}
-      #       SELENIUM_RELEASE=${{ matrix.SELENIUM_RELEASE }}
-      #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }}
-      #     cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }}
-      #     cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }},mode=max
-      - name: Build
-        run: >
-          docker build
-          --build-arg NODE_RELEASE=${{ matrix.NODE_RELEASE }}
-          --build-arg SELENIUM_RELEASE=${{ matrix.SELENIUM_RELEASE }}
-          --tag ${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }}
-          --file Dockerfile .
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          build-args: |
+            NODE_RELEASE=${{ matrix.NODE_RELEASE }}
+            SELENIUM_RELEASE=${{ matrix.SELENIUM_RELEASE }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }}
