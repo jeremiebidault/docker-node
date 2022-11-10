@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        SELENIUM_RELEASE: ["4.0.0"]
-        NODE_RELEASE: ["12.22.9", "14.18.3", "16.13.2"]
+        SELENIUM_RELEASE: ["4.6.0"]
     steps:
       - name: Checkout 
         uses: actions/checkout@v2
@@ -29,6 +28,5 @@ jobs:
           context: .
           push: true
           build-args: |
-            NODE_RELEASE=${{ matrix.NODE_RELEASE }}
             SELENIUM_RELEASE=${{ matrix.SELENIUM_RELEASE }}
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node:${{ matrix.NODE_RELEASE }}-selenium${{ matrix.SELENIUM_RELEASE }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node:nvm-selenium${{ matrix.SELENIUM_RELEASE }}
