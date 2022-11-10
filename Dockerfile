@@ -6,8 +6,11 @@ RUN apt-get -y update && \
     apt-get -y install \
         git
 
-RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash && \
+RUN touch ~/.bashrc && \
+    chmod +x ~/.bashrc && \
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash && \
     . ~/.nvm/nvm.sh && \
+    . ~/.bashrc && \
     nvm install 18 && \
     nvm install 16
 
