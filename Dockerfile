@@ -2,16 +2,15 @@ ARG SELENIUM_RELEASE
 
 FROM aarto/selenium:${SELENIUM_RELEASE}
 
-WORKDIR /
+ARG NODE_RELEASE
 
-ENV NVM_DIR=/.nvm
+ENV PATH=/usr/local/lib/node-v${NODE_RELEASE}-linux-x64/bin:${PATH}
 
-# nvm
-RUN mkdir /.nvm && \
-    curl -sL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash && \
-    . /.nvm/nvm.sh && \
-    nvm install 16 && \
-    nvm install 18
+# node
+RUN wget -q https://nodejs.org/dist/v${NODE_RELEASE}/node-v${NODE_RELEASE}-linux-x64.tar.gz && \
+    tar -xf node-v${NODE_RELEASE}-linux-x64.tar.gz -C /usr/local/lib || true && \
+    rm -rf node-v${NODE_RELEASE}-linux-x64.tar.gz && \
+    node --version
 
 # yarn
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/yarnkey.gpg && \
